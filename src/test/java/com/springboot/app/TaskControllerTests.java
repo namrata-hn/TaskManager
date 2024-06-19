@@ -55,11 +55,11 @@ public class TaskControllerTests {
 
     @Test
     public void testGetTaskById() throws Exception {
-        mockMvc.perform(get("/tasks/1")
+        mockMvc.perform(get("/tasks/23")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"id\":\"1\",\"title\":\"Task 1\",\"description\":\"description for task 1\",\"status\":\"IN PROGRESS\",\"dueDate\":\"" + LocalDate.now() + "\",\"priority\":\"MEDIUM\"}"))
+                        .content("{\"id\":\"23\",\"title\":\"Task 1\",\"description\":\"description for task 1\",\"status\":\"IN PROGRESS\",\"dueDate\":\"" + LocalDate.now() + "\",\"priority\":\"MEDIUM\"}"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value("1"))
+                .andExpect(jsonPath("$.id").value("23"))
                 .andExpect(jsonPath("$.title").value("Task 1"))
                 .andExpect(jsonPath("$.description").value("description for task 1"))
                 .andExpect(jsonPath("$.status").value("IN PROGRESS"))
@@ -126,11 +126,11 @@ public class TaskControllerTests {
     @Test
     public void testUpdateTask() throws Exception {
         //need id
-        mockMvc.perform(put("/tasks/1")
+        mockMvc.perform(put("/tasks/23")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"id\":\"1\", \"title\":\"Task 1\",\"description\":\"description for task 1\",\"status\":\"IN PROGRESS\",\"dueDate\":\"" + LocalDate.now() + "\",\"priority\":\"MEDIUM\"}"))
+                        .content("{\"id\":\"23\", \"title\":\"Task 1\",\"description\":\"description for task 1\",\"status\":\"IN PROGRESS\",\"dueDate\":\"" + LocalDate.now() + "\",\"priority\":\"MEDIUM\"}"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value("1"))
+                .andExpect(jsonPath("$.id").value("23"))
                 .andExpect(jsonPath("$.title").value("Task 1"))
                 .andExpect(jsonPath("$.description").value("description for task 1"))
                 .andExpect(jsonPath("$.status").value("IN PROGRESS"))

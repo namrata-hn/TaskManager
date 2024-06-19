@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class TaskController {
 
     private final TaskService service;
@@ -16,28 +17,33 @@ public class TaskController {
         this.service = service;
     }
 
-    @PostMapping("/tasks")
-    public Task createTask(@RequestBody Task task){
-        return service.createTask(task);
+    @PostMapping("/tasks/users/{user_id}")
+    public Task createTask(@RequestBody Task task, @PathVariable long user_id){
+        return service.saveTaskToUser(task, user_id);
     }
 
-    @GetMapping("/tasks/{id}")
-    public Optional<Task> getTaskById(@PathVariable long id){
-        return service.getTaskById(id);
+    @GetMapping("/tasks/users/{user_id}/{task_id}")
+    public Optional<Task> getTaskById(@PathVariable long user_id, @PathVariable long task_id){
+        return service.getTaskById(user_id, task_id);
     }
 
-    @GetMapping("/tasks")
+    @GetMapping("/tasks/users")
     public List<Task> getAllTasks(){
         return service.getAllTasks();
     }
 
-    @PutMapping("/tasks/{id}")
-    public Task updateTask(@PathVariable long id, @RequestBody Task task){
-        return service.updateTask(id, task);
+    @GetMapping("/tasks/users/{user_id}")
+    public List<Task> getTasksByUser(@PathVariable long user_id){
+        return service.findTasksByUserId(user_id);
     }
 
-    @DeleteMapping("/tasks/{id}")
-    public void deleteTask(@PathVariable long id){
-        service.deleteTask(id);
+    @PutMapping("/tasks/users/{user_id}/{task_id}")
+    public Task updateTask(@PathVariable long user_id, @PathVariable long task_id, @RequestBody Task task){
+        return service.updateTask(user_id, task_id, task);
+    }
+
+    @DeleteMapping("/tasks/users/{user_id}/{task_id}")
+    public void deleteTask(@PathVariable long user_id, @PathVariable long task_id){
+        service.deleteTask(user_id, task_id);
     }
 }

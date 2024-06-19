@@ -46,7 +46,7 @@ public class TaskServiceTests {
     @Test
     public void testGetTaskById(){
         when(testRepository.findById(1L)).thenReturn(Optional.of(task1));
-        Optional<Task> returnedTask = testService.getTaskById(1L);
+        Optional<Task> returnedTask = testService.getTaskById(1L, 1L);
         assertTrue(returnedTask.isPresent());
         assertEquals(Optional.of(task1), returnedTask);
         verify(testRepository, times(1)).findById(1L);
@@ -68,7 +68,7 @@ public class TaskServiceTests {
         Task updatedTask = new Task(1L, "Task 1", "description for task 1", "DONE",
                 LocalDate.now().plusDays(1), "LOW");
         when(testRepository.findById(1L)).thenReturn(Optional.empty());
-        Task result = testService.updateTask(1L, updatedTask);
+        Task result = testService.updateTask(1L,1L, updatedTask);
         assertNull(result);
         verify(testRepository, times(1)).findById(1L);
         verify(testRepository, never()).save(any(Task.class));
@@ -76,7 +76,7 @@ public class TaskServiceTests {
 
     @Test
     public void testDeleteTask(){
-        testService.deleteTask(1L);
+        testService.deleteTask(1L, 1L);
         verify(testRepository, times(1)).deleteById(1L);
     }
 }

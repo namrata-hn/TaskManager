@@ -23,6 +23,9 @@ public class Task {
     private LocalDate dueDate;
     @Pattern(regexp = "LOW|MEDIUM|HIGH", message = "Priority must be one of: LOW, MEDIUM, HIGH")
     private String priority;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Task(long id, String title, String description, String status, LocalDate dueDate, String priority){
         this.id = id;
@@ -83,5 +86,13 @@ public class Task {
 
     public void setPriority(String priority) {
         this.priority = priority;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
